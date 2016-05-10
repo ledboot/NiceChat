@@ -11,8 +11,20 @@ import android.view.ViewGroup;
  */
 public class SettingTab extends HomeTab {
 
+    public static final String TAG = MainPanel.TAG_SETTING;
+
     public SettingTab(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void setFacade() {
+        mLabel = "我的";
+    }
+
+    @Override
+    protected String getTabTag() {
+        return TAG;
     }
 
     @Override

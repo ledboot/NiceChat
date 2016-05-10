@@ -9,10 +9,22 @@ import android.view.ViewGroup;
 /**
  * Created by wengaowei728 on 16/5/9.
  */
-public class CircleTab extends HomeTab{
+public class CircleTab extends HomeTab {
+
+    public static final String TAG = MainPanel.TAG_CIRCLE;
 
     public CircleTab(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void setFacade() {
+        mLabel = "圈子";
+    }
+
+    @Override
+    protected String getTabTag() {
+        return TAG;
     }
 
     @Override

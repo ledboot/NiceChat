@@ -11,8 +11,20 @@ import android.view.ViewGroup;
  */
 public class ExploreTab extends HomeTab {
 
+    public static final String TAG = MainPanel.TAG_EXPLORE;
+
     public ExploreTab(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void setFacade() {
+        mLabel ="发现";
+    }
+
+    @Override
+    protected String getTabTag() {
+        return TAG;
     }
 
     @Override

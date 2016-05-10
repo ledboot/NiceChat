@@ -11,8 +11,20 @@ import android.view.ViewGroup;
  */
 public class FunTab extends HomeTab {
 
+    public static final String TAG = MainPanel.TAG_FUN;
+
     public FunTab(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void setFacade() {
+        mLabel = "Funs";
+    }
+
+    @Override
+    protected String getTabTag() {
+        return TAG;
     }
 
     @Override

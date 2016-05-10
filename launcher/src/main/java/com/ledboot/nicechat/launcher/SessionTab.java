@@ -11,9 +11,20 @@ import android.view.ViewGroup;
  */
 public class SessionTab extends HomeTab {
 
+    public static final String TAG = MainPanel.TAG_SESSION;
 
     public SessionTab(Context context) {
         super(context);
+    }
+
+    @Override
+    protected void setFacade() {
+        mLabel = "聊天";
+    }
+
+    @Override
+    protected String getTabTag() {
+        return TAG;
     }
 
     @Override
