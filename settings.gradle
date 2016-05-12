@@ -1,1 +1,1 @@
-include ':app', ':launcher'
+include ':app', ':launcher', ':core'

@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ledboot.nicechat.core.Debuger;
+
 /**
  * Created by wengaowei728 on 16/5/9.
  */
 public class SessionTab extends HomeTab {
+
 
     public static final String TAG = MainPanel.TAG_SESSION;
 
@@ -39,7 +42,9 @@ public class SessionTab extends HomeTab {
 
     @Override
     protected View onCreateContentView(ViewGroup parent, LayoutInflater inflater) {
-        return null;
+        View view = inflater.inflate(R.layout.session_tab,null);
+        Debuger.logD(TAG,"Session onCreateContentView()");
+        return view;
     }
 
     @Override

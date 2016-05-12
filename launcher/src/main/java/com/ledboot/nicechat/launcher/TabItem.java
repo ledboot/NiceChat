@@ -32,8 +32,8 @@ public class TabItem extends LinearLayout {
         setOrientation(LinearLayout.VERTICAL);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-        params.gravity = Gravity.CENTER;
-        setLayoutParams(params);
+        /*params.gravity = Gravity.CENTER;
+        setLayoutParams(params);*/
 
         mIcon = new ImageView(mContext);
         params = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);

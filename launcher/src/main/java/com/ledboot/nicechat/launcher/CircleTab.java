@@ -39,7 +39,8 @@ public class CircleTab extends HomeTab {
 
     @Override
     protected View onCreateContentView(ViewGroup parent, LayoutInflater inflater) {
-        return null;
+        View view = inflater.inflate(R.layout.circle_tab,null);
+        return view;
     }
 
     @Override

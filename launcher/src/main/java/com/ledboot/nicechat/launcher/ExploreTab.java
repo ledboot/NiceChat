@@ -39,7 +39,8 @@ public class ExploreTab extends HomeTab {
 
     @Override
     protected View onCreateContentView(ViewGroup parent, LayoutInflater inflater) {
-        return null;
+        View view = inflater.inflate(R.layout.explore_tab,null);
+        return view;
     }
 
     @Override

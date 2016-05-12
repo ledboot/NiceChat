@@ -3,19 +3,23 @@ package com.ledboot.nicechat.launcher;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.ledboot.nicechat.core.Debuger;
 
 /**
  * Created by wengaowei728 on 16/5/9.
  */
 public abstract class HomeTab extends LinearLayout {
 
+    public static final java.lang.String TAG = HomeTab.class.getSimpleName();
     private Context mContext;
 
     private int mSreenHeight;
@@ -25,8 +29,11 @@ public abstract class HomeTab extends LinearLayout {
     private float mScale;
     private int mTitleHeight;
 
-    private FrameLayout mTitleView;
-    private FrameLayout mContextView;
+    private FrameLayout mTitleStub = null;
+    private FrameLayout mContentStub = null;
+
+    private View mTitleView = null;
+    private View mContextView = null;
 
     private boolean mIsTitleVisible;
 
@@ -34,10 +41,17 @@ public abstract class HomeTab extends LinearLayout {
     protected int mSelResId;
     protected String mLabel = "";
 
+    private boolean mIsPreparing =false;
+    private boolean mIsPrepared =false;
+
+    private LayoutInflater mInflater = null;
+
+
 
     public HomeTab(Context context) {
         super(context);
         mContext = context;
+        mInflater = LayoutInflater.from(mContext);
         init();
     }
 
@@ -48,27 +62,63 @@ public abstract class HomeTab extends LinearLayout {
         setOrientation(LinearLayout.VERTICAL);
         setBackgroundColor(Color.TRANSPARENT);
 
-        if (mTitleView == null) {
-            mTitleView = new FrameLayout(mContext);
+        if (mTitleStub == null) {
+            mTitleStub = new FrameLayout(mContext);
             if(mIsTitleVisible){
                 mTitleHeight = (int)(MainPanel.S_SCALE * MainPanel.S_TITLE_HEIGHT);
             }else{
                 mTitleHeight = 0;
             }
-            mTitleView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,mTitleHeight));
-//            mTitleView.setBackgroundColor(Color.rgb(0, 179, 239));
+            mTitleStub.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,mTitleHeight));
+//            mTitleStub.setBackgroundColor(Color.rgb(0, 179, 239));
         }
 
-        addView(mTitleView);
+        addView(mTitleStub);
 
-        if(mContextView == null){
-            mContextView = new FrameLayout(mContext);
-            mContextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
-            mContextView.setBackgroundColor(Color.TRANSPARENT);
+        if(mContentStub == null){
+            mContentStub = new FrameLayout(mContext);
+            mContentStub.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
+            mContentStub.setBackgroundColor(Color.TRANSPARENT);
         }
-        addView(mContextView);
+        addView(mContentStub);
 
     }
+
+    void prepareToShow(){
+        Debuger.logD(TAG,"HomeTab prepareToShow");
+        if(mIsPrepared || mIsPrepared){
+            return;
+        }
+        mIsPreparing = true;
+        if(mTitleView == null){
+            mTitleView = onCreateTitleView(mTitleStub,mInflater);
+            if(mTitleView != null){
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
+                params.gravity = Gravity.CENTER;
+                mTitleView.setLayoutParams(params);
+                mTitleStub.addView(mTitleView);
+            }
+        }
+
+        if(mContextView == null){
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    mContextView = onCreateContentView(mContentStub,mInflater);
+                    if(mContextView != null){
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
+                        params.gravity = Gravity.CENTER;
+                        mContextView.setLayoutParams(params);
+                        mContentStub.addView(mContextView);
+                    }
+                    mIsPrepared = true;
+                    mIsPreparing = false;
+                }
+            });
+        }
+
+    }
+
 
     public int getNorResId(){
         return mNorResId;
@@ -87,6 +137,7 @@ public abstract class HomeTab extends LinearLayout {
     protected abstract String getTabTag();
 
     protected abstract void onCreate(Bundle savedInstanceState);
+
 
     protected abstract View onCreateTitleView(ViewGroup parent, LayoutInflater inflater);
 

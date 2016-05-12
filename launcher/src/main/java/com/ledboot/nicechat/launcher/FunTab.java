@@ -39,7 +39,8 @@ public class FunTab extends HomeTab {
 
     @Override
     protected View onCreateContentView(ViewGroup parent, LayoutInflater inflater) {
-        return null;
+        View view = inflater.inflate(R.layout.fun_tab,null);
+        return view;
     }
 
     @Override
