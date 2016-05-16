@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Created by wengaowei728 on 16/5/10.
  */
-public class TabContainer extends FrameLayout implements GestureDetector.OnGestureListener, SmoothScroller.OnScrollingListener{
+public class TabContainer extends FrameLayout implements GestureDetector.OnGestureListener {
 
-    public  static final java.lang.String TAG = TabContainer.class.getSimpleName();
+    public static final java.lang.String TAG = TabContainer.class.getSimpleName();
     private Context mContext;
     private MainPanel mMainPanel;
 
@@ -26,7 +26,6 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
     private boolean mFirstlayout = true;
 
     private GestureDetector mGestureDetector;
-    private SmoothScroller mSmoothScroller;
     private VelocityTracker mTracker;
 
     private int mScrollMaxWidth = 0;
@@ -37,11 +36,9 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
         mContext = context;
         mMainPanel = mainPanel;
         mTabs = mMainPanel.getTabs();
-        mGestureDetector = new GestureDetector(mContext,this);
-        mSmoothScroller = new SmoothScroller(this);
-        mSmoothScroller.setOnScrollingListener(this);
+        mGestureDetector = new GestureDetector(mContext, this);
         mTracker = VelocityTracker.obtain();
-        mTracker.computeCurrentVelocity(1,(float)0.1);
+        mTracker.computeCurrentVelocity(1, (float) 0.1);
         initView();
     }
 
@@ -53,14 +50,13 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
             page.setLayoutParams(params);
             addView(page);
         }
-        Debuger.logD(TAG,"TabContainer initView()");
+        Debuger.logD(TAG, "TabContainer initView()");
     }
-
 
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        Debuger.logD(TAG,"TabContainer onlayout");
+        Debuger.logD(TAG, "TabContainer onlayout");
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             if (!(view instanceof HomeTab) || view.getVisibility() == View.GONE) {
@@ -82,13 +78,13 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
             }
         }
 
-        if(mFirstlayout){
+        if (mFirstlayout) {
             post(new Runnable() {
                 @Override
                 public void run() {
                     showPage(MainPanel.TAG_SESSION);
                     mFirstlayout = false;
-                    Debuger.logD(TAG,"TabContainer onlayout......");
+                    Debuger.logD(TAG, "TabContainer onlayout......");
                 }
             });
         }
@@ -96,91 +92,150 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
 
     private float mLastInterceptDownX = -1;
     private float mLastInterceptDownY = -1;
-    private int mTrackerAddCount = 0;
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(getScrollX() < mScrollMinWidth)
+        Debuger.logW(TAG, "onInterceptTouchEvent,");
+        if (getScrollX() < mScrollMinWidth)
             return false;
-        switch (ev.getAction()){
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mLastInterceptDownX = ev.getX();
                 mLastInterceptDownY = ev.getY();
-                Debuger.logD(TAG,"onInterceptTouchEvent down x="+ev.getX()+",y="+getY());
+                Debuger.logD(TAG, "onInterceptTouchEvent down x=" + ev.getX() + ",y=" + getY());
                 mTracker.clear();
                 mTracker.addMovement(ev);
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG,"onInterceptTouchEvent move x="+ev.getX()+",y="+getY());
+                Debuger.logD(TAG, "onInterceptTouchEvent move x=" + ev.getX() + ",y=" + getY());
                 mTracker.addMovement(ev);
 //                mTrackerAddCount++;
-                Debuger.logD(TAG,"xvelocity="+Math.abs(mTracker.getXVelocity())+",y="+Math.abs(mTracker.getYVelocity()));
-                if(Math.abs(mTracker.getXVelocity())> Math.abs(mTracker.getYVelocity()*2)){
-                    Debuger.logD(TAG,"x velocity > y velocity");
+                Debuger.logD(TAG, "xvelocity=" + Math.abs(mTracker.getXVelocity()) + ",y=" + Math.abs(mTracker.getYVelocity()));
+                if (Math.abs(mTracker.getXVelocity()) > Math.abs(mTracker.getYVelocity() * 2)) {
+                    Debuger.logD(TAG, "x velocity > y velocity");
                     return true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG,"onInterceptTouchEvent up x="+ev.getX()+",y="+getY());
+                Debuger.logD(TAG, "onInterceptTouchEvent up x=" + ev.getX() + ",y=" + getY());
                 mLastInterceptDownX = -1;
                 mLastInterceptDownX = -1;
                 mTracker.clear();
-                break;
-        }
-        return false;
-//        return super.onInterceptTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                Debuger.logD(TAG,"onTouchEvent down x="+event.getX()+",y="+event.getY());
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG,"onTouchEvent move x="+event.getX()+",y="+event.getY());
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG,"onTouchEvent up x="+event.getX()+",y="+event.getY());
                 break;
         }
         return true;
     }
 
 
+    private float mLastTouchDownX = -1;
+    private float mLastTouchDownY = -1;
+    private float mLastTouchMoveX = -1;
+    private float mLastTouchMoveY = -1;
+
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()){
+    public boolean onTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Debuger.logD(TAG,"onTouchEvent down x="+ev.getX()+",y="+ev.getY());
+                if (mLastTouchDownX < 0 || mLastTouchDownY < 0) {
+                    mLastTouchDownY = ev.getY();
+                    mLastTouchDownX = ev.getX();
+                    mLastTouchMoveX = ev.getX();
+                    mLastTouchMoveY = ev.getY();
+                }
+                mLastTouchDownX = ev.getX();
+                mLastTouchDownY = ev.getY();
+                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG,"onTouchEvent move x="+ev.getX()+",y="+ev.getY());
+                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
+                float distance = 0;
+                int targetX = (int) (getScrollX() - (ev.getX() - mLastTouchMoveX));
+                if (targetX <= mScrollMinWidth) {
+                    targetX = mScrollMinWidth;
+                } else if (targetX >= mScrollMaxWidth) {
+                    targetX = mScrollMaxWidth;
+                }
+                /*if (ev.getX() >= mLastTouchDownX) {
+                    distance = ev.getX() - mLastTouchDownX;
+                } else {
+                    distance = mLastTouchDownX - ev.getX();
+                    scrollTo((int) (mLastTouchDownX + distance), 0);
+                }*/
+//                Debuger.logW(TAG, "onTouchEvent distance=" + distance);
+                scrollTo(targetX, 0);
+                mLastTouchMoveX = ev.getX();
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG,"onTouchEvent up x="+ev.getX()+",y="+ev.getY());
+                int targetX1 = (int) (getScrollX() - (ev.getX() - mLastTouchMoveX));
+                if (targetX1 <= mScrollMinWidth) {
+                    targetX1 = mScrollMinWidth;
+                } else if (targetX1 >= mScrollMaxWidth) {
+                    targetX1 = mScrollMaxWidth;
+                }
+                if (targetX1 < getWidth() * 0.5) {
+                    scrollTo(0, 0);
+                } else if (targetX1 < getWidth() * 1.5) {
+                    scrollTo(getWidth(), 0);
+                } else if (targetX1 < getWidth() * 2.5) {
+                    scrollTo(getWidth() * 2, 0);
+                } else if (targetX1 < getWidth() * 3.5) {
+                    scrollTo(getWidth() * 3, 0);
+                } else if (targetX1 < getWidth() * 4.5) {
+                    scrollTo(getWidth() * 4, 0);
+                }
+                mLastTouchDownX = -1;
+                mLastTouchDownY = -1;
+                mLastTouchMoveX = -1;
+                mLastTouchMoveY = -1;
+                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
+
                 break;
         }
-        return super.dispatchTouchEvent(ev);
+        return true;
     }
 
-    private HomeTab findTabByTag(String tag){
-        for(HomeTab tab : mTabs){
-            if(tab.getTabTag().equals(tag)){
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean rlt = super.dispatchTouchEvent(ev);
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+        }
+        return rlt;
+    }
+
+    private HomeTab findTabByTag(String tag) {
+        for (HomeTab tab : mTabs) {
+            if (tab.getTabTag().equals(tag)) {
                 return tab;
             }
         }
-        return  null;
+        return null;
     }
 
-    private void showPage(String tag){
+    private void showPage(String tag) {
         HomeTab tab = findTabByTag(tag);
-        if(tab != null){
+        if (tab != null) {
             tab.prepareToShow();
         }
+    }
+
+    private void showPrePage() {
+
+    }
+
+    private void showNextPage() {
+
     }
 
     @Override
@@ -213,18 +268,4 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
         return false;
     }
 
-    @Override
-    public void onScrollStart(int x, int y) {
-
-    }
-
-    @Override
-    public void smoothScrollTo(int x, int y) {
-
-    }
-
-    @Override
-    public void onScrollFinish(int x, int y) {
-
-    }
 }

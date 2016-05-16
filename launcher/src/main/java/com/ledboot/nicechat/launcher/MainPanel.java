@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by wengaowei728 on 16/5/9.
  */
-public class MainPanel extends FrameLayout implements GestureDetector.OnGestureListener, SmoothScroller.OnScrollingListener {
+public class MainPanel extends FrameLayout implements GestureDetector.OnGestureListener {
 
     public static final String TAG = MainPanel.class.getSimpleName();
 
@@ -51,7 +51,6 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
     private List<TabItem> mBottomTabs = null;
     public static float S_SCALE;
 
-    private SmoothScroller mSmoothScroller;
     private GestureDetector mGestureDetector;
 
     public MainPanel(Activity attached) {
@@ -88,21 +87,18 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
 
         mBottomTabs = new ArrayList<>();
 
-        for (int i = 0; i < mTabs.size(); i++) {
+        /*for (int i = 0; i < mTabs.size(); i++) {
             HomeTab tab = mTabs.get(i);
             TabItem item = new TabItem(mContext, tab.getNorResId(), tab.getLabel());
             FrameLayout.LayoutParams bottomTabParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-//            bottomTabParams.weight = 1.0f;
             tab.setLayoutParams(bottomTabParams);
             mBottomTabs.add(item);
             mBottomPanel.addView(item);
-        }
+        }*/
 
         root.addView(mBottomPanel);
 
         mGestureDetector = new GestureDetector(mContext, this);
-        mSmoothScroller = new SmoothScroller(mTabContainer);
-        mSmoothScroller.setOnScrollingListener(this);
         addView(root);
         Debuger.logD(TAG, "MainPanel initView()");
     }
@@ -131,20 +127,19 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean rlt = super.dispatchTouchEvent(ev);
         switch (ev.getAction()){
             case MotionEvent.ACTION_DOWN:
-                Debuger.logD(TAG,"dispatchTouchEvent x="+ev.getX()+",y="+ev.getY());
+                Debuger.logD(TAG,"dispatchTouchEvent down x="+ev.getX()+",y="+ev.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG,"dispatchTouchEvent x="+ev.getX()+",y="+ev.getY());
+                Debuger.logD(TAG,"dispatchTouchEvent move x="+ev.getX()+",y="+ev.getY());
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG,"dispatchTouchEvent x="+ev.getX()+",y="+ev.getY());
+                Debuger.logD(TAG,"dispatchTouchEvent up x="+ev.getX()+",y="+ev.getY());
                 break;
         }
-        boolean rlt = super.dispatchTouchEvent(ev);
-        Debuger.logD(TAG,"dispatchTouchEvent result = "+rlt);
         return rlt;
     }
 
@@ -244,18 +239,4 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
         return false;
     }
 
-    @Override
-    public void onScrollStart(int x, int y) {
-
-    }
-
-    @Override
-    public void smoothScrollTo(int x, int y) {
-
-    }
-
-    @Override
-    public void onScrollFinish(int x, int y) {
-
-    }
 }
