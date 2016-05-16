@@ -62,19 +62,19 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
             if (!(view instanceof HomeTab) || view.getVisibility() == View.GONE) {
                 continue;
             }
-            mScrollMaxWidth = getWidth() * 3;
+            mScrollMaxWidth = getWidth() * 4;
             mScrollMinWidth = 0;
             HomeTab page = (HomeTab) view;
             if (MainPanel.TAG_SESSION.equals(page.getTabTag())) {
                 view.layout(0, 0, this.getWidth(), this.getHeight());
             } else if (MainPanel.TAG_EXPLORE.equals(page.getTabTag())) {
-                view.layout(this.getWidth(), 0, this.getWidth(), this.getHeight());
+                view.layout(this.getWidth(), 0, this.getWidth() * 2, this.getHeight());
             } else if (MainPanel.TAG_FUN.equals(page.getTabTag())) {
-                view.layout(this.getWidth() * 2, 0, this.getWidth() * 2, this.getHeight());
+                view.layout(this.getWidth() * 2, 0, this.getWidth() * 3, this.getHeight());
             } else if (MainPanel.TAG_CIRCLE.equals(page.getTabTag())) {
-                view.layout(this.getWidth() * 3, 0, this.getWidth() * 3, this.getHeight());
+                view.layout(this.getWidth() * 3, 0, this.getWidth() * 4, this.getHeight());
             } else if (MainPanel.TAG_SETTING.equals(page.getTabTag())) {
-                view.layout(this.getWidth() * 4, 0, this.getWidth() * 4, this.getHeight());
+                view.layout(this.getWidth() * 4, 0, this.getWidth() * 5, this.getHeight());
             }
         }
 
@@ -135,6 +135,7 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        int targetX = 0;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (mLastTouchDownX < 0 || mLastTouchDownY < 0) {
@@ -145,12 +146,11 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
                 }
                 mLastTouchDownX = ev.getX();
                 mLastTouchDownY = ev.getY();
-                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
+//                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
-                float distance = 0;
-                int targetX = (int) (getScrollX() - (ev.getX() - mLastTouchMoveX));
+//                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
+                targetX = (int) (getScrollX() - (ev.getX() - mLastTouchMoveX));
                 if (targetX <= mScrollMinWidth) {
                     targetX = mScrollMinWidth;
                 } else if (targetX >= mScrollMaxWidth) {
@@ -168,28 +168,28 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                int targetX1 = (int) (getScrollX() - (ev.getX() - mLastTouchMoveX));
-                if (targetX1 <= mScrollMinWidth) {
-                    targetX1 = mScrollMinWidth;
-                } else if (targetX1 >= mScrollMaxWidth) {
-                    targetX1 = mScrollMaxWidth;
+                targetX = (int) (getScrollX() - (ev.getX() - mLastTouchMoveX));
+                if (targetX <= mScrollMinWidth) {
+                    targetX = mScrollMinWidth;
+                } else if (targetX >= mScrollMaxWidth) {
+                    targetX = mScrollMaxWidth;
                 }
-                if (targetX1 < getWidth() * 0.5) {
-                    scrollTo(0, 0);
-                } else if (targetX1 < getWidth() * 1.5) {
-                    scrollTo(getWidth(), 0);
-                } else if (targetX1 < getWidth() * 2.5) {
-                    scrollTo(getWidth() * 2, 0);
-                } else if (targetX1 < getWidth() * 3.5) {
-                    scrollTo(getWidth() * 3, 0);
-                } else if (targetX1 < getWidth() * 4.5) {
-                    scrollTo(getWidth() * 4, 0);
+                if (targetX < getWidth() * 0.5) {
+                    showPage(MainPanel.TAG_SESSION);
+                } else if (targetX < getWidth() * 1.5) {
+                    showPage(MainPanel.TAG_EXPLORE);
+                } else if (targetX < getWidth() * 2.5) {
+                    showPage(MainPanel.TAG_FUN);
+                } else if (targetX < getWidth() * 3.5) {
+                    showPage(MainPanel.TAG_CIRCLE);
+                } else {
+                    showPage(MainPanel.TAG_SETTING);
                 }
                 mLastTouchDownX = -1;
                 mLastTouchDownY = -1;
                 mLastTouchMoveX = -1;
                 mLastTouchMoveY = -1;
-                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
+//                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
 
                 break;
         }
@@ -201,14 +201,14 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
         boolean rlt = super.dispatchTouchEvent(ev);
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
+//                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
+//                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
+//                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
                 break;
         }
         return rlt;
@@ -227,15 +227,29 @@ public class TabContainer extends FrameLayout implements GestureDetector.OnGestu
         HomeTab tab = findTabByTag(tag);
         if (tab != null) {
             tab.prepareToShow();
+            scrollToPage(tag);
         }
     }
 
-    private void showPrePage() {
 
-    }
-
-    private void showNextPage() {
-
+    private void scrollToPage(String tag) {
+        if (findTabByTag(tag) == null) return;
+        if (MainPanel.TAG_SESSION.equals(tag)) {
+            Debuger.logD(TAG,"scroll to session~~~");
+            this.scrollTo(0, 0);
+        } else if (MainPanel.TAG_EXPLORE.equals(tag)) {
+            Debuger.logD(TAG,"scroll to explore~~~");
+            this.scrollTo(this.getWidth(), 0);
+        } else if (MainPanel.TAG_FUN.equals(tag)) {
+            Debuger.logD(TAG,"scroll to fun~~~");
+            this.scrollTo(this.getWidth() * 2, 0);
+        } else if (MainPanel.TAG_CIRCLE.equals(tag)) {
+            Debuger.logD(TAG,"scroll to circle~~~");
+            this.scrollTo(this.getWidth() * 3, 0);
+        } else if (MainPanel.TAG_SETTING.equals(tag)) {
+            Debuger.logD(TAG,"scroll to setting~~~");
+            this.scrollTo(this.getWidth() * 4, 0);
+        }
     }
 
     @Override

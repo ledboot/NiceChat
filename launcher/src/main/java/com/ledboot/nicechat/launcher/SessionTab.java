@@ -37,13 +37,14 @@ public class SessionTab extends HomeTab {
 
     @Override
     protected View onCreateTitleView(ViewGroup parent, LayoutInflater inflater) {
-        return null;
+        View view = inflater.inflate(R.layout.session_title, null);
+        return view;
     }
 
     @Override
     protected View onCreateContentView(ViewGroup parent, LayoutInflater inflater) {
-        View view = inflater.inflate(R.layout.session_tab,null);
-        Debuger.logD(TAG,"Session onCreateContentView()");
+        View view = inflater.inflate(R.layout.session_tab, null);
+        Debuger.logD(TAG, "Session onCreateContentView()");
         return view;
     }
 

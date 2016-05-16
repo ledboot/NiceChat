@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by wengaowei728 on 16/5/9.
  */
-public class MainPanel extends FrameLayout implements GestureDetector.OnGestureListener {
+public class MainPanel extends FrameLayout {
 
     public static final String TAG = MainPanel.class.getSimpleName();
 
@@ -98,7 +98,6 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
 
         root.addView(mBottomPanel);
 
-        mGestureDetector = new GestureDetector(mContext, this);
         addView(root);
         Debuger.logD(TAG, "MainPanel initView()");
     }
@@ -130,14 +129,14 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
         boolean rlt = super.dispatchTouchEvent(ev);
         switch (ev.getAction()){
             case MotionEvent.ACTION_DOWN:
-                Debuger.logD(TAG,"dispatchTouchEvent down x="+ev.getX()+",y="+ev.getY());
+//                Debuger.logD(TAG,"dispatchTouchEvent down x="+ev.getX()+",y="+ev.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG,"dispatchTouchEvent move x="+ev.getX()+",y="+ev.getY());
+//                Debuger.logD(TAG,"dispatchTouchEvent move x="+ev.getX()+",y="+ev.getY());
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG,"dispatchTouchEvent up x="+ev.getX()+",y="+ev.getY());
+//                Debuger.logD(TAG,"dispatchTouchEvent up x="+ev.getX()+",y="+ev.getY());
                 break;
         }
         return rlt;
@@ -152,14 +151,14 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Debuger.logD(TAG,"onTouchEvent down x="+event.getX()+",y="+event.getY());
+//                Debuger.logD(TAG,"onTouchEvent down x="+event.getX()+",y="+event.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG,"onTouchEvent move x="+event.getX()+",y="+event.getY());
+//                Debuger.logD(TAG,"onTouchEvent move x="+event.getX()+",y="+event.getY());
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG,"onTouchEvent up x="+event.getX()+",y="+event.getY());
+//                Debuger.logD(TAG,"onTouchEvent up x="+event.getX()+",y="+event.getY());
                 mLastTouchDownX = -1;
                 mLastTouchDownY = -1;
                 mLastTouchMoveX = -1;
@@ -179,12 +178,12 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Debuger.logD(TAG,"onInterceptTouchEvent down x="+ev.getX()+",y="+ev.getY());
+//                Debuger.logD(TAG,"onInterceptTouchEvent down x="+ev.getX()+",y="+ev.getY());
                 mLastInterceptDownX = ev.getX();
                 mLastInterceptDownY = ev.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                Debuger.logD(TAG,"onInterceptTouchEvent move x="+ev.getX()+",y="+ev.getY());
+//                Debuger.logD(TAG,"onInterceptTouchEvent move x="+ev.getX()+",y="+ev.getY());
                 if(mLastInterceptMoveY < 0){
                     mLastInterceptMoveY = mLastInterceptDownY;
                 }
@@ -194,7 +193,7 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Debuger.logD(TAG,"onInterceptTouchEvent up x="+ev.getX()+",y="+ev.getY());
+//                Debuger.logD(TAG,"onInterceptTouchEvent up x="+ev.getX()+",y="+ev.getY());
                 mLastInterceptDownX = -1;
                 mLastInterceptDownY = -1;
                 mLastInterceptMoveX = -1;
@@ -207,36 +206,6 @@ public class MainPanel extends FrameLayout implements GestureDetector.OnGestureL
 
     public List<HomeTab> getTabs() {
         return mTabs;
-    }
-
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
     }
 
 }

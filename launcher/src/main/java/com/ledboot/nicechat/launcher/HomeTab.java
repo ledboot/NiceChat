@@ -41,11 +41,10 @@ public abstract class HomeTab extends LinearLayout {
     protected int mSelResId;
     protected String mLabel = "";
 
-    private boolean mIsPreparing =false;
-    private boolean mIsPrepared =false;
+    private boolean mIsPreparing = false;
+    private boolean mIsPrepared = false;
 
     private LayoutInflater mInflater = null;
-
 
 
     public HomeTab(Context context) {
@@ -64,71 +63,67 @@ public abstract class HomeTab extends LinearLayout {
 
         if (mTitleStub == null) {
             mTitleStub = new FrameLayout(mContext);
-            if(mIsTitleVisible){
-                mTitleHeight = (int)(MainPanel.S_SCALE * MainPanel.S_TITLE_HEIGHT);
-            }else{
+            if (mIsTitleVisible) {
+                mTitleHeight = (int) (MainPanel.S_SCALE * MainPanel.S_TITLE_HEIGHT);
+            } else {
                 mTitleHeight = 0;
             }
-            mTitleStub.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,mTitleHeight));
+            mTitleStub.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mTitleHeight));
 //            mTitleStub.setBackgroundColor(Color.rgb(0, 179, 239));
         }
 
         addView(mTitleStub);
 
-        if(mContentStub == null){
+        if (mContentStub == null) {
             mContentStub = new FrameLayout(mContext);
-            mContentStub.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
+            mContentStub.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
             mContentStub.setBackgroundColor(Color.TRANSPARENT);
         }
         addView(mContentStub);
 
     }
 
-    void prepareToShow(){
-        Debuger.logD(TAG,"HomeTab prepareToShow");
-        if(mIsPrepared || mIsPrepared){
+    void prepareToShow() {
+        Debuger.logD(TAG, "HomeTab prepareToShow");
+        if (mIsPrepared || mIsPrepared) {
             return;
         }
         mIsPreparing = true;
-        if(mTitleView == null){
-            mTitleView = onCreateTitleView(mTitleStub,mInflater);
-            if(mTitleView != null){
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
+        if (mTitleView == null) {
+            mTitleView = onCreateTitleView(mTitleStub, mInflater);
+            if (mTitleView != null) {
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
                 params.gravity = Gravity.CENTER;
                 mTitleView.setLayoutParams(params);
                 mTitleStub.addView(mTitleView);
             }
         }
 
-        if(mContextView == null){
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    mContextView = onCreateContentView(mContentStub,mInflater);
-                    if(mContextView != null){
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
-                        params.gravity = Gravity.CENTER;
-                        mContextView.setLayoutParams(params);
-                        mContentStub.addView(mContextView);
-                    }
-                    mIsPrepared = true;
-                    mIsPreparing = false;
-                }
-            });
+        if (mContextView == null) {
+            Debuger.logE(TAG,"Thread name ="+Thread.currentThread().getName());
+            mContextView = onCreateContentView(mContentStub, mInflater);
+            if (mContextView != null) {
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+                params.gravity = Gravity.CENTER;
+                mContextView.setLayoutParams(params);
+                mContentStub.addView(mContextView);
+            }
+            mIsPrepared = true;
+            mIsPreparing = false;
         }
 
     }
 
 
-    public int getNorResId(){
+    public int getNorResId() {
         return mNorResId;
     }
 
-    public int getSelResId(){
+    public int getSelResId() {
         return mSelResId;
     }
 
-    public String getLabel(){
+    public String getLabel() {
         return mLabel;
     }
 
