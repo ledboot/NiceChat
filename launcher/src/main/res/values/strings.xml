@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Launcher</string>
+
+    <string name="tab_item_session">聊天</string>
+    <string name="tab_item_explore">发现</string>
+    <string name="tab_item_fun">Fun</string>
+    <string name="tab_item_circle">圈子</string>
+    <string name="tab_item_setting">我的</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.ledboot.nicechat.launcher;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ public class SettingTab extends HomeTab {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate() {
 
     }
 

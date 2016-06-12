@@ -2,9 +2,6 @@ package com.ledboot.nicechat.launcher;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +17,7 @@ import com.ledboot.nicechat.core.Debuger;
 public abstract class HomeTab extends LinearLayout {
 
     public static final java.lang.String TAG = HomeTab.class.getSimpleName();
-    private Context mContext;
+    public Context mContext;
 
     private int mSreenHeight;
     private int mSreenWidth;
@@ -69,7 +66,6 @@ public abstract class HomeTab extends LinearLayout {
                 mTitleHeight = 0;
             }
             mTitleStub.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mTitleHeight));
-//            mTitleStub.setBackgroundColor(Color.rgb(0, 179, 239));
         }
 
         addView(mTitleStub);
@@ -90,6 +86,7 @@ public abstract class HomeTab extends LinearLayout {
         }
         mIsPreparing = true;
         if (mTitleView == null) {
+            onCreate();
             mTitleView = onCreateTitleView(mTitleStub, mInflater);
             if (mTitleView != null) {
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -114,6 +111,18 @@ public abstract class HomeTab extends LinearLayout {
 
     }
 
+    public void setTitleVisible(boolean isVisible){
+        mIsTitleVisible = isVisible;
+        if (mIsTitleVisible) {
+            mTitleHeight = (int) (MainPanel.S_SCALE * MainPanel.S_TITLE_HEIGHT);
+        } else {
+            mTitleHeight = 0;
+        }
+        ViewGroup.LayoutParams params = mTitleStub.getLayoutParams();
+        params.height = mTitleHeight;
+        this.updateViewLayout(mTitleStub,params);
+    }
+
 
     public int getNorResId() {
         return mNorResId;
@@ -131,7 +140,7 @@ public abstract class HomeTab extends LinearLayout {
 
     protected abstract String getTabTag();
 
-    protected abstract void onCreate(Bundle savedInstanceState);
+    protected abstract void onCreate();
 
 
     protected abstract View onCreateTitleView(ViewGroup parent, LayoutInflater inflater);

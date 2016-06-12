@@ -1,0 +1,37 @@
+Applications Memory Usage (kB):
+Uptime: 85415 Realtime: 85415
+
+** MEMINFO in pid 1755 [com.ledboot.nicechat] **
+                   Pss  Private  Private  Swapped     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------
+  Native Heap     3794     3732        0        0    20480    14079     6400
+  Dalvik Heap     1860     1808        0        0     1703     1448      255
+ Dalvik Other      304      304        0        0                           
+        Stack      136      136        0        0                           
+    Other dev        4        0        4        0                           
+     .so mmap     1064      132       40        0                           
+    .apk mmap      116        0        0        0                           
+    .ttf mmap      161        0       92        0                           
+    .dex mmap     3456        0     3336        0                           
+    .oat mmap     1254        0       92        0                           
+    .art mmap      867      508        0        0                           
+   Other mmap      251        4      216        0                           
+      Unknown       89       88        0        0                           
+        TOTAL    13356     6712     3780        0    22183    15527     6655
+ 
+ Objects
+               Views:       46         ViewRootImpl:        1
+         AppContexts:        3           Activities:        1
+              Assets:        2        AssetManagers:        2
+       Local Binders:        7        Proxy Binders:       13
+       Parcel memory:        2         Parcel count:       11
+    Death Recipients:        0      OpenSSL Sockets:        0
+ 
+ SQL
+         MEMORY_USED:        0
+  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0
+ 
+ 
+ Asset Allocations
+    zip:/data/data/com.ledboot.nicechat/files/instant-run/right/resources.ap_:/resources.arsc: 198K

@@ -45,6 +45,8 @@ public class HomeActivity extends BaseActivity
         super.onCreate(savedInstanceState);
     }
 
+
+
     @Override
     public void initInjector() {
         mActivityComponent.inject(this);

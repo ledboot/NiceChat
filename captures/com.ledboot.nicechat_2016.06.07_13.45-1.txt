@@ -1,0 +1,55 @@
+TASK com.ledboot.nicechat id=118
+  ACTIVITY com.ledboot.nicechat/.views.home.impl.MainActivity 2e23343e pid=1755
+    Local FragmentActivity 2c580b94 State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    FragmentManager misc state:
+      mHost=android.support.v4.app.FragmentActivity$HostCallbacks@3d7c363d
+      mContainer=android.support.v4.app.FragmentActivity$HostCallbacks@3d7c363d
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{3697de32 V.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{11090783 V.E..... ... 0,0-1080,1776}
+          android.view.ViewStub{13744d00 G.E..... ... 0,0-0,0 #1020373}
+          android.widget.FrameLayout{5faf939 V.E..... ... 0,75-1080,1776}
+            android.support.v7.widget.FitWindowsLinearLayout{3ee1ab7e V.E..... ... 0,0-1080,1701 #7f0c0055 app:id/action_bar_root}
+              android.support.v7.widget.ViewStubCompat{29ca98df G.E..... ... 0,0-0,0 #7f0c0056 app:id/action_mode_bar_stub}
+              android.support.v7.widget.ContentFrameLayout{2151392c V.E..... ... 0,0-1080,1701 #1020002 android:id/content}
+                com.ledboot.nicechat.launcher.MainPanel{1308eff5 V.E..... ... 0,0-1080,1701}
+                  android.widget.LinearLayout{2069018a V.E..... ... 0,0-1080,1701}
+                    com.ledboot.nicechat.launcher.TabContainer{5e9e3fb V.E..... ... 0,0-1080,1551}
+                      com.ledboot.nicechat.launcher.SessionTab{172ebc18 V.E..... ... 0,0-1080,1551}
+                        android.widget.FrameLayout{2ec59671 V.E..... ... 0,0-1080,150}
+                          android.widget.FrameLayout{2a5dac56 V.E..... ... 0,0-1080,150}
+                            android.support.v7.widget.Toolbar{34e8c4d7 V.E..... ... 0,0-1080,150 #7f0c0084 app:id/id_toolbar}
+                              android.widget.ImageButton{85f81c4 VFED.... ... 0,9-168,159}
+                              android.support.v7.widget.ActionMenuView{bcc28ad V.E..... ... 1080,9-1080,159}
+                              android.widget.TextView{1d2037e2 V.ED.... ... 180,34-300,115}
+                        android.widget.FrameLayout{128ad773 V.E..... ... 0,150-1080,1551}
+                          android.widget.LinearLayout{8b4f630 V.E..... ... 0,0-1080,1401}
+                            android.support.v7.widget.Toolbar{312fa2a9 V.E..... ... 0,0-1080,168}
+                            android.support.v7.widget.AppCompatTextView{2c8df02e V.ED.... ... 0,168-1080,1401}
+                      com.ledboot.nicechat.launcher.ExploreTab{293177cf V.E..... ... 1080,0-2160,1551}
+                        android.widget.FrameLayout{15ab455c V.E..... ... 0,0-1080,0}
+                        android.widget.FrameLayout{2a36c065 V.E..... ... 0,0-1080,1551}
+                      com.ledboot.nicechat.launcher.FunTab{1b0ce13a V.E..... ... 2160,0-3240,1551}
+                        android.widget.FrameLayout{1df7c1eb V.E..... ... 0,0-1080,0}
+                        android.widget.FrameLayout{26555b48 V.E..... ... 0,0-1080,1551}
+                      com.ledboot.nicechat.launcher.CircleTab{35d7fde1 V.E..... ... 3240,0-4320,1551}
+                        android.widget.FrameLayout{3957d706 V.E..... ... 0,0-1080,0}
+                        android.widget.FrameLayout{28e91c7 V.E..... ... 0,0-1080,1551}
+                      com.ledboot.nicechat.launcher.SettingTab{e08e3f4 V.E..... ... 4320,0-5400,1551}
+                        android.widget.FrameLayout{31f5971d V.E..... ... 0,0-1080,0}
+                        android.widget.FrameLayout{170a5d92 V.E..... ... 0,0-1080,1551}
+                    com.ledboot.nicechat.launcher.MainPanel$TabPannel{28d88363 V.E..... ... 0,1551-1080,1701}
+                      android.widget.ImageView{1dca4b60 V.ED..C. ... 78,27-138,82}
+                      android.widget.TextView{3e598819 V.ED.... ... 0,92-216,141}
+                      android.widget.ImageView{2fecc0de V.ED..C. ... 294,27-354,82}
+                      android.widget.TextView{1445f2bf V.ED.... ... 216,92-432,141}
+                      android.widget.ImageView{3078bd8c V.ED..C. ... 510,27-570,82}
+                      android.widget.TextView{13718cd5 V.ED.... ... 432,92-648,141}
+                      android.widget.ImageView{22000cea V.ED..C. ... 726,27-786,82}
+                      android.widget.TextView{24f0fbdb V.ED.... ... 648,92-864,141}
+                      android.widget.ImageView{dba2678 V.ED..C. ... 942,27-1002,82}
+                      android.widget.TextView{8cb2151 V.ED.... ... 864,92-1080,141}
+        android.view.View{384a0db6 V.ED.... ... 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}
