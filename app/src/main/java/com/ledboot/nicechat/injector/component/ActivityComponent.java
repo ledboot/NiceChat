@@ -7,6 +7,9 @@ import com.ledboot.nicechat.injector.ContextLife;
 import com.ledboot.nicechat.injector.PerActivity;
 import com.ledboot.nicechat.injector.module.ActivityModule;
 import com.ledboot.nicechat.views.home.impl.HomeActivity;
+import com.ledboot.nicechat.views.home.impl.WelcomeActivity;
+import com.ledboot.nicechat.views.login.impl.LoginActivity;
+import com.ledboot.nicechat.views.login.impl.RegisterActivity;
 
 import dagger.Component;
 
@@ -26,6 +29,13 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
+    void inject(LoginActivity loginActivity);
+
     void inject(HomeActivity homeActivity);
+
+    void inject(WelcomeActivity welcomeActivity);
+    void inject(RegisterActivity registerActivity);
+
+
 
 }

@@ -19,6 +19,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    //为了解决部分第三方库重复打包了META-INF的问题
+    packagingOptions{
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -26,6 +34,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.google.dagger:dagger:${rootProject.ext.dagger2Version}"
     apt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger2Version}"
+    compile "com.jakewharton:butterknife:${rootProject.ext.butterknifeVersion}"
+    apt "com.jakewharton:butterknife-compiler:${rootProject.ext.butterknifeVersion}"
+
+    // LeanCloud 基础包
+    compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
+    // 推送与实时聊天需要的包
+    compile ('cn.leancloud.android:avoscloud-push:v3.+@aar'){transitive = true}
+    // LeanCloud 统计包
+    compile ('cn.leancloud.android:avoscloud-statistics:v3.+')
+
     compile project(':launcher')
     compile project(':core')
 }

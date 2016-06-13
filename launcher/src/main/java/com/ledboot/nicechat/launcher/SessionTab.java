@@ -1,6 +1,5 @@
 package com.ledboot.nicechat.launcher;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +18,6 @@ import com.ledboot.nicechat.launcher.bean.SessionBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 
 /**
  * Created by wengaowei728 on 16/5/9.
@@ -50,7 +48,6 @@ public class SessionTab extends HomeTab {
 
     @Override
     protected void onCreate() {
-        ButterKnife.bind((Activity) mContext);
     }
 
     @Override

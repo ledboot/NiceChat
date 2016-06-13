@@ -3,6 +3,7 @@ package com.ledboot.nicechat;
 import android.app.Application;
 import android.content.Context;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.ledboot.nicechat.injector.component.ApplicationComponent;
 import com.ledboot.nicechat.injector.component.DaggerApplicationComponent;
 import com.ledboot.nicechat.injector.module.ApplicationModule;
@@ -23,6 +24,7 @@ public class NiceChatApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initComponent();
+        AVOSCloud.initialize(this,"GXD8LRwyyeKis4cXLeLRLQHp-gzGzoHsz","RVU8K4VjUDamXXNKI6scBPun");
     }
 
     private void initComponent() {

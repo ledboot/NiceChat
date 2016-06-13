@@ -2,15 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ledboot.nicechat">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
+        android:name=".NiceChatApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".NiceChatApplication"
         android:theme="@style/AppTheme">
+
+        <!-- 实时通信模块、推送（若使用该功能，需添加以下声明）START -->
+        <service android:name="com.avos.avoscloud.PushService"/>
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <!-- 实时通信模块、推送 END -->
+
         <activity
-            android:name=".views.home.impl.MainActivity"
+            android:name=".views.home.impl.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,6 +38,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.login.impl.LoginActivity"></activity>
+
+        <activity
+            android:name=".views.home.impl.MainActivity"
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
     </application>
 
 </manifest>
