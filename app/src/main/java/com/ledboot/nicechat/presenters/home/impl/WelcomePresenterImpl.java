@@ -9,6 +9,7 @@ import com.ledboot.nicechat.presenters.home.IWelcomePresenter;
 import com.ledboot.nicechat.views.IView;
 import com.ledboot.nicechat.views.home.IWelcomeView;
 import com.ledboot.nicechat.views.login.impl.LoginActivity;
+import com.ledboot.nicechat.views.login.impl.RegisterActivity;
 
 import javax.inject.Inject;
 
@@ -36,7 +37,8 @@ public class WelcomePresenterImpl implements IWelcomePresenter {
 
     @Override
     public void goRegist() {
-
+        Intent intent = new Intent(mContext, RegisterActivity.class);
+        mContext.startActivity(intent);
     }
 
     @Override

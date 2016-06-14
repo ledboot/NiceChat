@@ -1,16 +1,17 @@
 package com.ledboot.nicechat.views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
-import java.lang.reflect.Field;
 
 import com.ledboot.nicechat.NiceChatApplication;
 import com.ledboot.nicechat.injector.component.ActivityComponent;
 import com.ledboot.nicechat.injector.component.DaggerActivityComponent;
 import com.ledboot.nicechat.injector.module.ActivityModule;
 import com.ledboot.nicechat.presenters.IPresenter;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by Eleven on 16/4/22.
@@ -19,6 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected ActivityComponent mActivityComponent;
     protected IPresenter mPresenter;
+    protected Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .applicationComponent(((NiceChatApplication) getApplication()).getApplicationComponent())
                 .build();
         super.onCreate(savedInstanceState);
+        mContext = this;
         int layout = setContentView();
         setContentView(layout);
         initInjector();

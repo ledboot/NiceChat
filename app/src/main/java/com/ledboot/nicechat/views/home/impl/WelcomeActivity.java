@@ -6,11 +6,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.SaveCallback;
 import com.ledboot.nicechat.R;
-import com.ledboot.nicechat.core.Debuger;
 import com.ledboot.nicechat.presenters.home.impl.WelcomePresenterImpl;
 import com.ledboot.nicechat.views.BaseActivity;
 import com.ledboot.nicechat.views.home.IWelcomeView;
@@ -40,14 +36,6 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView{
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        AVObject testObj = new AVObject("TestObject");
-        testObj.put("words","hello world");
-        testObj.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(AVException e) {
-                Debuger.logD("save success!");
-            }
-        });
     }
 
     @Override
@@ -70,6 +58,11 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView{
     @OnClick(R.id.login)
     public void login(View v){
         mWelcomePresenter.goLogin();
+    }
+
+    @OnClick(R.id.regist)
+    public void regist(View v){
+        mWelcomePresenter.goRegist();
     }
 
 }

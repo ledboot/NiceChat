@@ -7,5 +7,5 @@ import com.ledboot.nicechat.presenters.IPresenter;
  */
 public interface ILoginPresenter extends IPresenter {
 
-    void login();
+    void login(String email,String pwd);
 }
