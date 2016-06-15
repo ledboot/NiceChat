@@ -2,11 +2,13 @@ package com.ledboot.nicechat.presenters.home.impl;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import com.ledboot.nicechat.injector.ContextLife;
 import com.ledboot.nicechat.presenters.home.IHomePresenter;
 import com.ledboot.nicechat.views.IView;
 import com.ledboot.nicechat.views.home.IHomeView;
+import com.ledboot.nicechat.views.home.impl.MainActivity;
 
 import javax.inject.Inject;
 
@@ -34,5 +36,11 @@ public class HomePresenterImpl implements IHomePresenter {
     @Override
     public void detachView() {
 
+    }
+
+    @Override
+    public void startLauncher() {
+        Intent intent = new Intent(mContext, MainActivity.class);
+        mContext.startActivity(intent);
     }
 }

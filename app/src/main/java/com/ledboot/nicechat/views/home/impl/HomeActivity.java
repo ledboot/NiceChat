@@ -81,6 +81,11 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
+    public View setCustomContentView() {
+        return null;
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {

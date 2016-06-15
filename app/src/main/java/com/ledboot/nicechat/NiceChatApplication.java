@@ -7,6 +7,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.ledboot.nicechat.injector.component.ApplicationComponent;
 import com.ledboot.nicechat.injector.component.DaggerApplicationComponent;
 import com.ledboot.nicechat.injector.module.ApplicationModule;
+import com.ledboot.nicechat.utils.Utils;
 
 /**
  * Created by Eleven on 16/4/22.
@@ -25,6 +26,7 @@ public class NiceChatApplication extends Application {
         super.onCreate();
         initComponent();
         AVOSCloud.initialize(this,"GXD8LRwyyeKis4cXLeLRLQHp-gzGzoHsz","RVU8K4VjUDamXXNKI6scBPun");
+        Utils.initialize(this);
     }
 
     private void initComponent() {

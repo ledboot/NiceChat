@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.ledboot.nicechat.NiceChatApplication;
 import com.ledboot.nicechat.injector.component.ActivityComponent;
@@ -31,7 +32,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         int layout = setContentView();
-        setContentView(layout);
+        if(layout == 0){
+            View view = setCustomContentView();
+            setContentView(view);
+        }else{
+            setContentView(layout);
+        }
         initInjector();
         initUiAndListener();
     }
@@ -45,6 +51,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract void initUiAndListener();
 
     public abstract int setContentView();
+
+    public abstract View setCustomContentView();
 
     /**
      * 得到stausBar高度

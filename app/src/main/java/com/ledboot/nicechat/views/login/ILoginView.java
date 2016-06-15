@@ -7,4 +7,6 @@ import com.ledboot.nicechat.views.IView;
  */
 public interface ILoginView extends IView{
 
+    void showProgress();
+    void hideProgress();
 }

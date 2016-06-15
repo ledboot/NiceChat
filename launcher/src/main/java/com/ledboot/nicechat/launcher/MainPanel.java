@@ -171,7 +171,9 @@ public class MainPanel extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Debuger.logD("dispatchTouchEvent");
         boolean rlt = super.dispatchTouchEvent(ev);
+//        Debuger.logD("dispatchTouchEvent, rlt="+rlt);
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
 //                Debuger.logD(TAG,"dispatchTouchEvent down x="+ev.getX()+",y="+ev.getY());
@@ -194,6 +196,7 @@ public class MainPanel extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Debuger.logD("onTouchEvent");
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 //                Debuger.logD(TAG,"onTouchEvent down x="+event.getX()+",y="+event.getY());
@@ -221,14 +224,15 @@ public class MainPanel extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
+        Debuger.logD("onInterceptTouchEvent");
+        /*switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-//                Debuger.logD(TAG,"onInterceptTouchEvent down x="+ev.getX()+",y="+ev.getY());
+                Debuger.logD(TAG,"onInterceptTouchEvent down x="+ev.getX()+",y="+ev.getY());
                 mLastInterceptDownX = ev.getX();
                 mLastInterceptDownY = ev.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-//                Debuger.logD(TAG,"onInterceptTouchEvent move x="+ev.getX()+",y="+ev.getY());
+                Debuger.logD(TAG,"onInterceptTouchEvent move x="+ev.getX()+",y="+ev.getY());
                 if (mLastInterceptMoveY < 0) {
                     mLastInterceptMoveY = mLastInterceptDownY;
                 }
@@ -238,13 +242,13 @@ public class MainPanel extends FrameLayout {
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-//                Debuger.logD(TAG,"onInterceptTouchEvent up x="+ev.getX()+",y="+ev.getY());
+                Debuger.logD(TAG,"onInterceptTouchEvent up x="+ev.getX()+",y="+ev.getY());
                 mLastInterceptDownX = -1;
                 mLastInterceptDownY = -1;
                 mLastInterceptMoveX = -1;
                 mLastInterceptMoveY = -1;
                 break;
-        }
+        }*/
         return false;
     }
 

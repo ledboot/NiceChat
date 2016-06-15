@@ -101,7 +101,7 @@ public class TabContainer extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Debuger.logW(TAG, "onInterceptTouchEvent,");
+        /*Debuger.logW(TAG, "onInterceptTouchEvent,");
         if (getScrollX() < mScrollMinWidth)
             return false;
         switch (ev.getAction()) {
@@ -119,7 +119,9 @@ public class TabContainer extends FrameLayout {
                 mLastInterceptDownX = -1;
                 mLastInterceptDownX = -1;
                 break;
-        }
+        }*/
+        Debuger.logD("onInterceptTouchEvent");
+
         return false;
     }
 
@@ -131,8 +133,46 @@ public class TabContainer extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        Debuger.logD("onTouchEvent");
+        /*switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+        }*/
+        computeAction(ev);
+        return false;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean rlt = super.dispatchTouchEvent(ev);
+        Debuger.logD("dispatchTouchEvent,rlt=" + rlt);
+        /*switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Debuger.logD(TAG, "dispatchTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Debuger.logD(TAG, "dispatchTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                Debuger.logD(TAG, "dispatchTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
+                break;
+        }*/
+        computeAction(ev);
+        return rlt;
+    }
+
+    private void computeAction(MotionEvent ev) {
         mTracker.addMovement(ev);
-        int targetX = 0;
+        int targetX;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (mLastTouchDownX < 0 || mLastTouchDownY < 0) {
@@ -198,25 +238,6 @@ public class TabContainer extends FrameLayout {
                 mLastTouchMoveY = -1;
                 break;
         }
-        return true;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        boolean rlt = super.dispatchTouchEvent(ev);
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-//                Debuger.logD(TAG, "onTouchEvent down x=" + ev.getX() + ",y=" + ev.getY());
-                break;
-            case MotionEvent.ACTION_MOVE:
-//                Debuger.logD(TAG, "onTouchEvent move x=" + ev.getX() + ",y=" + ev.getY());
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-//                Debuger.logD(TAG, "onTouchEvent up x=" + ev.getX() + ",y=" + ev.getY());
-                break;
-        }
-        return rlt;
     }
 
     private HomeTab findTabByTag(String tag) {

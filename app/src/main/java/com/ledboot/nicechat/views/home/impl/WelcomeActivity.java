@@ -55,6 +55,11 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView{
         return R.layout.activity_welcome;
     }
 
+    @Override
+    public View setCustomContentView() {
+        return null;
+    }
+
     @OnClick(R.id.login)
     public void login(View v){
         mWelcomePresenter.goLogin();

@@ -2,25 +2,44 @@ package com.ledboot.nicechat.views.home.impl;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.ledboot.nicechat.core.Debuger;
 import com.ledboot.nicechat.launcher.MainPanel;
+import com.ledboot.nicechat.views.BaseActivity;
 
 /**
  * Created by wengaowei728 on 16/5/10.
  */
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends BaseActivity{
 
     private static final java.lang.String TAG = MainActivity.class.getSimpleName();
-    MainPanel mMainPanel;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMainPanel = new MainPanel(this);
-        setContentView(mMainPanel);
-
         Debuger.logD(TAG," finish MainActivity~~~~");
+    }
+
+    @Override
+    public void initInjector() {
+
+    }
+
+    @Override
+    public void initUiAndListener() {
+
+    }
+
+    @Override
+    public int setContentView() {
+        return 0;
+    }
+
+    @Override
+    public View setCustomContentView() {
+        MainPanel mMainPanel = new MainPanel(this);
+        return mMainPanel;
     }
 }

@@ -88,6 +88,11 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         return R.layout.activity_regitster;
     }
 
+    @Override
+    public View setCustomContentView() {
+        return null;
+    }
+
     @OnClick(R.id.submit)
     public void submit(View v){
         AVUser user = new AVUser();
